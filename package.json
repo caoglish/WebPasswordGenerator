@@ -1,0 +1,32 @@
+{
+  "name": "webpasswordgenerator",
+  "version": "1.0.0",
+  "description": "web password generator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "password"
+  ],
+  "author": "caoglish",
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "mocha": "^4.0.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babelify": "^8.0.0",
+    "grunt": "^1.0.1",
+    "grunt-babel": "^7.0.0",
+    "grunt-browserify": "^5.2.0",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-connect": "^1.0.2",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-eslint": "0.0.5",
+    "grunt-contrib-watch": "^1.0.0"
+  }
+}
