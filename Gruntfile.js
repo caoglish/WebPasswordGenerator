@@ -33,7 +33,7 @@ module.exports = function(grunt) {
       html: {
         files: [config.src + "*.html"],
         tasks: ['copy:html']
-      }
+      },
     },
     copy: {
       html: {
@@ -55,6 +55,11 @@ module.exports = function(grunt) {
         }
       }
     },
+    // shell: {
+    //   mocha: {
+    //     command: 'mocha'
+    //   }
+    // }
     
 
 
@@ -66,11 +71,14 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-eslint');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  //grunt.loadNpmTasks('grunt-shell');
+ // grunt.loadNpmTasks('grunt-shell-spawn');
   //grunt.loadNpmTasks('grunt-babel');
 
 
   // Default task(s).
   grunt.registerTask('dev', ["connect", "watch"]);
+ // grunt.registerTask('test', ["shell:mocha"]);
   grunt.registerTask('default', ['copy:html','browserify']);
   //grunt.registerTask('watch', ['']);
 
