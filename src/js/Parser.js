@@ -22,7 +22,7 @@ function parse(password) {
                     if(!_.isEmpty(matches)){
                         password = _.trimStart(password,matches[0]);  //console.log(matches[0]);
                         blocklist.push(block(matches[0],type));
-                        continue;
+                        break;
                     }
         }
     }
