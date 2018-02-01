@@ -4,24 +4,30 @@ var passwordVerifier = require("../src/js/Parser");
 
 describe('Parser', function() {
 	describe('parser', function() {
-		it('has a number', function() {
+		it('parse string "abc342*-/3b!"', function() {
 			assert.deepEqual([{
-				block: "abc"
+				block: "abc",
+				"type": "letter"
 			},
 			{
-				block: "342"
+				block: "342",
+				"type": "number"
 			},
 						{
-				block: "*-/"
+				block: "*-/",
+				"type": "symbol"
 			},
 			{
-				block: "3"
+				block: "3",
+				"type": "number"
 			},
 			{
-				block: "b"
+				block: "b",
+				"type": "letter"
 			},
 			{
-				block: "!"
+				block: "!",
+				"type": "symbol"
 			},
 
 			], passwordVerifier.parse("abc342*-/3b!"));
