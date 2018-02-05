@@ -8,5 +8,10 @@ describe('Analyzer', function() {
             console.log(analyzer.analyse("abc###233fasdf3E#@$f"))
 
         });
+
+        it('Analysing only type', function() {
+            console.log(analyzer.analyse("0123456789"))
+
+        });
     });
 });

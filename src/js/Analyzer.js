@@ -1,8 +1,17 @@
 var _ = require('lodash');
 var parser = require('./Parser');
 
+function initTypeList()
+{
+    return {
+        letter:0,
+        number:0,
+        symbol:0
+    }
+}
+
 function countBlockTypeNumber(parsedData) {
-    let blockNumber = {};
+    let blockNumber = initTypeList();
     for (block of parsedData) {
         if (!_.isNumber(blockNumber[block.type])) blockNumber[block.type] = 1;
         else blockNumber[block.type]++;
@@ -11,7 +20,7 @@ function countBlockTypeNumber(parsedData) {
 }
 
 function countTypeSize(parsedData){
-    let list = {};
+    let list = initTypeList();
     for (block of parsedData) {
         
         if (!_.isNumber(list[block.type])) list[block.type] = block.block.length;
@@ -33,6 +42,10 @@ function countletterCaseSize(parsedData){
     return list;
 }
 
+function analyseOnlyType(parsedData){
+    return parsedData.length === 1? parsedData[0].type:null;
+}
+
 
 function analyse(password) {
     let analyzedData = {
@@ -45,6 +58,7 @@ function analyse(password) {
     analyzedData.blockNumber = analyzedData.parsedData.length;//number of blocks
     analyzedData.blockTypeNumber = countBlockTypeNumber(analyzedData.parsedData);//number of each type
     analyzedData.letterCaseSize = countletterCaseSize(analyzedData.parsedData);//number of each type of letter case
+    analyzedData.onlyType = analyseOnlyType(analyzedData.parsedData);//number of each type of letter case
 
     return analyzedData;
 }

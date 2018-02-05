@@ -8,9 +8,11 @@ function block(text,type){
 }
 function parse(password) {
     let blocklist=[];
-    let regexList={letter:/^[a-zA-Z]+/,
+    let regexList={
+        letter:/^[a-zA-Z]+/,
         number:/^[0-9]+/,
-        symbol:/^[^a-zA-Z0-9]+/};
+        symbol:/^[^a-zA-Z0-9]+/
+    };
     let matches;
 
     while(password.length>0){
@@ -18,7 +20,7 @@ function parse(password) {
             regex = regexList[type];
             matches = password.match(regex);
                     if(!_.isEmpty(matches)){
-                        password = _.trimStart(password,matches[0]);  //console.log(matches[0]);
+                        password = _.trimStart(password,matches[0]);  
                         blocklist.push(block(matches[0],type));
                         break;
                     }
