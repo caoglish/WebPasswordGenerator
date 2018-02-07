@@ -103,8 +103,29 @@ function analyseRepetitiveCharacter(password) {
             return sum;
         }, 0)
     };
+}
+
+function countMiddleNumberOrSymbol(analyzedData) {
+    let pd= analyzedData.parsedData;
+    let ts = analyzedData.typeSize;
+    let bn = analyzedData.blockNumber;
+
+
+    let firstBlock=pd[0];
+    let lastBlack=pd[bn-1];
+
+    let middleNum=ts["number"]+ts["symbol"];
+
+    if(firstBlock.type !=='letter') middleNum--;
+    if(lastBlack.type  !=='letter') middleNum--;
+
+    return middleNum;
+
 
 }
+
+
+
 
 
 function analyse(password) {
@@ -121,6 +142,7 @@ function analyse(password) {
     analyzedData.onlyType = analyseOnlyType(analyzedData.parsedData); //number of each type of letter case
     //analyzedData.repetitivePattern = analyseRepetitivePattern(analyzedData.password); //number of each type of letter case
     analyzedData.repetitiveCharacter = analyseRepetitiveCharacter(analyzedData.password); //number of each type of letter case
+    analyzedData.middleNumberOrSymbolSize = countMiddleNumberOrSymbol(analyzedData); //number of each type of letter case
 
     return analyzedData;
 }
