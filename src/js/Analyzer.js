@@ -49,23 +49,25 @@ function analyseOnlyType(parsedData) {
 }
 
 
-function analyseRepetitive(password) {
+function analyseRepetitivePattern(password) {
     let len = password.length;
     let ct = parseInt(len / 2); //check times
     let list = [];
+    let checkPosition=0;
 
-    for (let cti = 2; cti <= ct; cti++) {
-        for (let TargetIndex = 0; TargetIndex <= len - cti * 2; TargetIndex++) {
+    for (let cti = ct; cti >= 2; cti--) {
+        for (let TargetIndex = checkPosition; TargetIndex <= cti ; TargetIndex++) {
             let targetStr = password.substr(TargetIndex, cti);
             for (let scanStart = TargetIndex + cti; scanStart <= len - cti; scanStart++) {
                 let scanStr = password.substr(scanStart, cti);
                 if (scanStr === targetStr) {
+                    checkPosition=TargetIndex+cti+1
                     list.push({
                         str: scanStr,
                         Begin: TargetIndex,
                         End: TargetIndex + cti
-
                     });
+                    break;
                 }
             }
         }
@@ -93,7 +95,7 @@ function analyse(password) {
     analyzedData.blockTypeNumber = countBlockTypeNumber(analyzedData.parsedData); //number of each type
     analyzedData.letterCaseSize = countletterCaseSize(analyzedData.parsedData); //number of each type of letter case
     analyzedData.onlyType = analyseOnlyType(analyzedData.parsedData); //number of each type of letter case
-    analyzedData.repetitive = analyseRepetitive(analyzedData.password); //number of each type of letter case
+    analyzedData.repetitivePattern = analyseRepetitivePattern(analyzedData.password); //number of each type of letter case
 
     return analyzedData;
 }
