@@ -85,7 +85,7 @@ function analyseOnlyType(parsedData) {
 function analyseRepetitiveCharacter(password) {
     let charlist = password.split("");
     let list = {};
-    let totalRepetitiveCount=0;
+
     for (let char of charlist) {
         if (list[char] === undefined) {
             list[char] = 1;
@@ -94,24 +94,15 @@ function analyseRepetitiveCharacter(password) {
         }
     }
 
-    // charlist.reduce(function(sum,i){
-    //     console.log(sum);
-    //     console.log(sum);
-
-    // });
-
-    // totalRepetitiveCount= list.reduce(function(sum,char){
-    //     if(list[char]>1)        return  sum+ list[char];
-    //     return sum;
-    // },0);
-
-    for (let char in list) {
-        if(list[char]>1){
-            totalRepetitiveCount += list[char];
-        }
-    }
-
-    return {list:list,count:totalRepetitiveCount};
+    return {
+        list: list,
+        count: _.reduce(list, function (sum, num) {
+            if (num > 1) {
+                return sum + num;
+            }
+            return sum;
+        }, 0)
+    };
 
 }
 
