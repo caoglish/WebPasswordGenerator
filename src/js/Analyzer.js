@@ -48,40 +48,6 @@ function analyseOnlyType(parsedData) {
     return parsedData.length === 1 ? parsedData[0].type : null;
 }
 
-
-// function analyseRepetitivePattern(password) {
-//     let len = password.length;
-//     let ct = parseInt(len / 2); //check times
-//     let list = [];
-//     let checkPosition=0;
-
-//     for (let cti = ct; cti >= 2; cti--) {
-//         for (let TargetIndex = checkPosition; TargetIndex <= cti ; TargetIndex++) {
-//             let targetStr = password.substr(TargetIndex, cti);
-//             for (let scanStart = TargetIndex + cti; scanStart <= len - cti; scanStart++) {
-//                 let scanStr = password.substr(scanStart, cti);
-//                 if (scanStr === targetStr) {
-//                     checkPosition=TargetIndex+cti+1
-//                     list.push({
-//                         str: scanStr,
-//                         Begin: TargetIndex,
-//                         End: TargetIndex + cti
-//                     });
-//                     break;
-//                 }
-//             }
-//         }
-
-//     }
-
-//     return list;
-
-
-
-
-
-// }
-
 function analyseRepetitiveCharacter(password) {
     let charlist = password.split("");
     let list = {};
@@ -106,22 +72,63 @@ function analyseRepetitiveCharacter(password) {
 }
 
 function countMiddleNumberOrSymbol(analyzedData) {
-    let pd= analyzedData.parsedData;
+    let pd = analyzedData.parsedData;
     let ts = analyzedData.typeSize;
     let bn = analyzedData.blockNumber;
 
 
-    let firstBlock=pd[0];
-    let lastBlack=pd[bn-1];
+    let firstBlock = pd[0];
+    let lastBlack = pd[bn - 1];
 
-    let middleNum=ts["number"]+ts["symbol"];
+    let middleNum = ts["number"] + ts["symbol"];
 
-    if(firstBlock.type !=='letter') middleNum--;
-    if(lastBlack.type  !=='letter') middleNum--;
+    if (firstBlock.type !== 'letter') middleNum--;
+    if (lastBlack.type !== 'letter') middleNum--;
 
     return middleNum;
 
 
+}
+
+
+function analyseConsecutive(parsedData) {
+    let list = {
+        uppercase: 0,
+        lowercase: 0,
+        number: 0
+    }
+
+    for (let block of parsedData) {
+        if (block.type === 'number') {
+            list.number += block.block.length - 1;
+        }
+
+        if (block.type === 'letter' && block.block.length > 1) {
+            let letterList=block.block.split("");
+            let un=0;//uppercase number
+            let ln=0;//lowercase number
+            console.log(letterList);
+            for(let char of letterList){
+                if(char.toLowerCase()===char){
+                    ln++;
+                    un=0;
+                    if(ln>1){
+                        list.lowercase++;
+                    }
+                }else {
+                    ln=0;
+                    un++;
+                    if(un>1){
+                        list.uppercase++;
+                    }
+                }
+            }
+            
+        }
+
+    }
+
+    return list;
 }
 
 
@@ -143,6 +150,7 @@ function analyse(password) {
     //analyzedData.repetitivePattern = analyseRepetitivePattern(analyzedData.password); //number of each type of letter case
     analyzedData.repetitiveCharacter = analyseRepetitiveCharacter(analyzedData.password); //number of each type of letter case
     analyzedData.middleNumberOrSymbolSize = countMiddleNumberOrSymbol(analyzedData); //number of each type of letter case
+    analyzedData.consecutive = analyseConsecutive(analyzedData.parsedData); //number of each type of letter case
 
     return analyzedData;
 }
