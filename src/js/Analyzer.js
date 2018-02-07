@@ -49,36 +49,69 @@ function analyseOnlyType(parsedData) {
 }
 
 
-function analyseRepetitivePattern(password) {
-    let len = password.length;
-    let ct = parseInt(len / 2); //check times
-    let list = [];
-    let checkPosition=0;
+// function analyseRepetitivePattern(password) {
+//     let len = password.length;
+//     let ct = parseInt(len / 2); //check times
+//     let list = [];
+//     let checkPosition=0;
 
-    for (let cti = ct; cti >= 2; cti--) {
-        for (let TargetIndex = checkPosition; TargetIndex <= cti ; TargetIndex++) {
-            let targetStr = password.substr(TargetIndex, cti);
-            for (let scanStart = TargetIndex + cti; scanStart <= len - cti; scanStart++) {
-                let scanStr = password.substr(scanStart, cti);
-                if (scanStr === targetStr) {
-                    checkPosition=TargetIndex+cti+1
-                    list.push({
-                        str: scanStr,
-                        Begin: TargetIndex,
-                        End: TargetIndex + cti
-                    });
-                    break;
-                }
-            }
+//     for (let cti = ct; cti >= 2; cti--) {
+//         for (let TargetIndex = checkPosition; TargetIndex <= cti ; TargetIndex++) {
+//             let targetStr = password.substr(TargetIndex, cti);
+//             for (let scanStart = TargetIndex + cti; scanStart <= len - cti; scanStart++) {
+//                 let scanStr = password.substr(scanStart, cti);
+//                 if (scanStr === targetStr) {
+//                     checkPosition=TargetIndex+cti+1
+//                     list.push({
+//                         str: scanStr,
+//                         Begin: TargetIndex,
+//                         End: TargetIndex + cti
+//                     });
+//                     break;
+//                 }
+//             }
+//         }
+
+//     }
+
+//     return list;
+
+
+
+
+
+// }
+
+function analyseRepetitiveCharacter(password) {
+    let charlist = password.split("");
+    let list = {};
+    let totalRepetitiveCount=0;
+    for (let char of charlist) {
+        if (list[char] === undefined) {
+            list[char] = 1;
+        } else {
+            list[char]++;
         }
-
     }
 
-    return list;
+    // charlist.reduce(function(sum,i){
+    //     console.log(sum);
+    //     console.log(sum);
 
+    // });
 
+    // totalRepetitiveCount= list.reduce(function(sum,char){
+    //     if(list[char]>1)        return  sum+ list[char];
+    //     return sum;
+    // },0);
 
+    for (let char in list) {
+        if(list[char]>1){
+            totalRepetitiveCount += list[char];
+        }
+    }
 
+    return {list:list,count:totalRepetitiveCount};
 
 }
 
@@ -95,7 +128,8 @@ function analyse(password) {
     analyzedData.blockTypeNumber = countBlockTypeNumber(analyzedData.parsedData); //number of each type
     analyzedData.letterCaseSize = countletterCaseSize(analyzedData.parsedData); //number of each type of letter case
     analyzedData.onlyType = analyseOnlyType(analyzedData.parsedData); //number of each type of letter case
-    analyzedData.repetitivePattern = analyseRepetitivePattern(analyzedData.password); //number of each type of letter case
+    //analyzedData.repetitivePattern = analyseRepetitivePattern(analyzedData.password); //number of each type of letter case
+    analyzedData.repetitiveCharacter = analyseRepetitiveCharacter(analyzedData.password); //number of each type of letter case
 
     return analyzedData;
 }
