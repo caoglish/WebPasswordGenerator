@@ -107,7 +107,6 @@ function analyseConsecutive(parsedData) {
             let letterList=block.block.split("");
             let un=0;//uppercase number
             let ln=0;//lowercase number
-            console.log(letterList);
             for(let char of letterList){
                 if(char.toLowerCase()===char){
                     ln++;
@@ -123,11 +122,46 @@ function analyseConsecutive(parsedData) {
                     }
                 }
             }
-            
         }
-
     }
 
+    return list;
+}
+
+function analyzeSequential(parsedData){
+    let list = {
+        letter: 0,
+        number: 0,
+        symbol: 0
+    }
+
+   let  seqPatternList={
+        letter:"abcdefghijklmnopqrstuvwxyz",
+        number:"01234567890",
+        symbol:"!@#$%^&*()_+"
+    }
+    
+    let sReverse=function(str){
+        return _.reverse(str.split("")).join("");
+    }
+
+    let  revSeqPatternList={};
+    for(let key in seqPatternList){
+        revSeqPatternList[key]=sReverse(seqPatternList[key]);
+    }
+    console.log(revSeqPatternList);
+
+    for (let block of parsedData) {
+        let str = block.block;
+        let type = block.type;
+
+        for(let i =0 ; i < str.length - 2; i ++){
+            let chkstr = str.substr(i,3);
+            if(seqPatternList[type].indexOf(chkstr)!==-1||revSeqPatternList[type].indexOf(chkstr)!==-1){
+                list[type]++;
+            }
+        }
+    }
     return list;
 }
 
@@ -151,6 +185,7 @@ function analyse(password) {
     analyzedData.repetitiveCharacter = analyseRepetitiveCharacter(analyzedData.password); //number of each type of letter case
     analyzedData.middleNumberOrSymbolSize = countMiddleNumberOrSymbol(analyzedData); //number of each type of letter case
     analyzedData.consecutive = analyseConsecutive(analyzedData.parsedData); //number of each type of letter case
+    analyzedData.sequential = analyzeSequential(analyzedData.parsedData); //number of each type of letter case
 
     return analyzedData;
 }
