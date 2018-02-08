@@ -104,20 +104,20 @@ function analyseConsecutive(parsedData) {
         }
 
         if (block.type === 'letter' && block.block.length > 1) {
-            let letterList=block.block.split("");
-            let un=0;//uppercase number
-            let ln=0;//lowercase number
-            for(let char of letterList){
-                if(char.toLowerCase()===char){
+            let letterList = block.block.split("");
+            let un = 0; //uppercase number
+            let ln = 0; //lowercase number
+            for (let char of letterList) {
+                if (char.toLowerCase() === char) {
                     ln++;
-                    un=0;
-                    if(ln>1){
+                    un = 0;
+                    if (ln > 1) {
                         list.lowercase++;
                     }
-                }else {
-                    ln=0;
+                } else {
+                    ln = 0;
                     un++;
-                    if(un>1){
+                    if (un > 1) {
                         list.uppercase++;
                     }
                 }
@@ -128,36 +128,36 @@ function analyseConsecutive(parsedData) {
     return list;
 }
 
-function analyzeSequential(parsedData){
+function analyzeSequential(parsedData) {
     let list = {
         letter: 0,
         number: 0,
         symbol: 0
     }
 
-   let  seqPatternList={
-        letter:"abcdefghijklmnopqrstuvwxyz",
-        number:"01234567890",
-        symbol:"!@#$%^&*()_+"
+    let seqPatternList = {
+        letter: "abcdefghijklmnopqrstuvwxyz",
+        number: "01234567890",
+        symbol: "!@#$%^&*()_+"
     }
-    
-    let sReverse=function(str){
+
+    let sReverse = function (str) {
         return _.reverse(str.split("")).join("");
     }
 
-    let  revSeqPatternList={};
-    for(let key in seqPatternList){
-        revSeqPatternList[key]=sReverse(seqPatternList[key]);
+    let revSeqPatternList = {};
+    for (let key in seqPatternList) {
+        revSeqPatternList[key] = sReverse(seqPatternList[key]);
     }
-    console.log(revSeqPatternList);
+
 
     for (let block of parsedData) {
         let str = block.block;
         let type = block.type;
 
-        for(let i =0 ; i < str.length - 2; i ++){
-            let chkstr = str.substr(i,3);
-            if(seqPatternList[type].indexOf(chkstr)!==-1||revSeqPatternList[type].indexOf(chkstr)!==-1){
+        for (let i = 0; i < str.length - 2; i++) {
+            let chkstr = str.substr(i, 3);
+            if (seqPatternList[type].indexOf(chkstr) !== -1 || revSeqPatternList[type].indexOf(chkstr) !== -1) {
                 list[type]++;
             }
         }
