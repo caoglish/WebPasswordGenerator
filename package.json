@@ -12,7 +12,8 @@
   "author": "caoglish",
   "license": "MIT",
   "dependencies": {
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "vue": "^2.5.13"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -31,5 +32,8 @@
     "grunt-shell": "^1.1.2",
     "grunt-shell-spawn": "^0.3.10",
     "mocha": "^4.1.0"
+  },
+  "browser": {
+    "vue": "vue/dist/vue.common.js"
   }
 }

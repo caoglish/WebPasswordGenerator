@@ -16,9 +16,9 @@ function parse(password) {
     let matches;
 
     while(password.length>0){
-        for (type in regexList){
-            regex = regexList[type];
-            matches = password.match(regex);
+        for (let type in regexList){
+            let regex = regexList[type];
+            let matches = password.match(regex);
                     if(!_.isEmpty(matches)){
                         password = _.trimStart(password,matches[0]);  
                         blocklist.push(block(matches[0],type));

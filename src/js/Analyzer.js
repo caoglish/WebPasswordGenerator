@@ -11,7 +11,7 @@ function initTypeList() {
 
 function countBlockTypeNumber(parsedData) {
     let blockNumber = initTypeList();
-    for (block of parsedData) {
+    for (let block of parsedData) {
         if (!_.isNumber(blockNumber[block.type])) blockNumber[block.type] = 1;
         else blockNumber[block.type]++;
     }
@@ -20,7 +20,7 @@ function countBlockTypeNumber(parsedData) {
 
 function countTypeSize(parsedData) {
     let list = initTypeList();
-    for (block of parsedData) {
+    for (let block of parsedData) {
 
         if (!_.isNumber(list[block.type])) list[block.type] = block.block.length;
         else list[block.type] += block.block.length;
@@ -33,7 +33,7 @@ function countletterCaseSize(parsedData) {
         upperCase: 0,
         lowerCase: 0
     };
-    for (block of parsedData) {
+    for (let block of parsedData) {
         if (block.type !== 'letter') continue;
         let charList = block.block.split("");
         charList.forEach(function (item) {
@@ -72,7 +72,9 @@ function analyseRepetitiveCharacter(password) {
 }
 
 function countMiddleNumberOrSymbol(analyzedData) {
+   
     let pd = analyzedData.parsedData;
+    if(pd.length===0)  return 0;
     let ts = analyzedData.typeSize;
     let bn = analyzedData.blockNumber;
 
