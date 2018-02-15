@@ -1,13 +1,32 @@
 <html>
+
 <body>
   <h1>Web Password Generator</h1>
-  
+
   <div id="app">
     <input v-model="password">
     <p>{{ password }}</p>
+  
+
+
+    <table>
+      <tr>
+        <th>
+          rule
+        </th>
+        <th>
+            count
+        </th>
+      </tr>
+      <tr v-for="item of tableItem">
+        <td>{{item["rule"]}}</td>
+        <td>{{item["count"]}}</td>
+
+
+      </tr>
+    </table>
     <pre>{{ analyzedInfo }}</pre>
-    
- 
+
   </div>
 
 
@@ -15,4 +34,5 @@
 
   <script src="./js/main.js"></script>
 </body>
+
 </html>
