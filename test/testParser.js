@@ -4,33 +4,58 @@ var passwordVerifier = require("../src/js/Parser");
 
 describe('Parser', function() {
 	describe('parser', function() {
-		it('parse string "abc342*-/3b!"', function() {
+		it('parse string "abc342*-/3b!abc"', function() {
 			assert.deepEqual([{
-				block: "abc",
-				"type": "letter"
+				token: "abc",
+				"type": "letter",
+				"position":0,
+				"start_offset":0,
+				"end_offset":3
 			},
 			{
-				block: "342",
-				"type": "number"
+				token: "342",
+				"type": "number",
+				"position":1,
+				"start_offset":3,
+				"end_offset":6
 			},
 						{
-				block: "*-/",
-				"type": "symbol"
+				token: "*-/",
+				"type": "symbol",
+				"position":2,
+				"start_offset":6,
+				"end_offset":9
 			},
 			{
-				block: "3",
-				"type": "number"
+				token: "3",
+				"type": "number",
+				"position":3,
+				"start_offset":9,
+				"end_offset":10
 			},
 			{
-				block: "b",
-				"type": "letter"
+				token: "b",
+				"type": "letter",
+				"position":4	,
+				"start_offset":10,
+				"end_offset":11
 			},
 			{
-				block: "!",
-				"type": "symbol"
+				token: "!",
+				"type": "symbol",
+				"position":5,
+				"start_offset":11,
+				"end_offset":12
+			},
+			{
+				token: "abc",
+				"type": "letter",
+				"position":6,
+				"start_offset":12,
+				"end_offset":15
 			},
 
-			], passwordVerifier.parse("abc342*-/3b!"));
+			], passwordVerifier.parse("abc342*-/3b!abc"));
 		});
 
 

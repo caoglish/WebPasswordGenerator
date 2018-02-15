@@ -9,21 +9,21 @@ function initTypeList() {
     }
 }
 
-function countBlockTypeNumber(parsedData) {
-    let blockNumber = initTypeList();
-    for (let block of parsedData) {
-        if (!_.isNumber(blockNumber[block.type])) blockNumber[block.type] = 1;
-        else blockNumber[block.type]++;
+function counttokenTypeNumber(parsedData) {
+    let tokenNumber = initTypeList();
+    for (let token of parsedData) {
+        if (!_.isNumber(tokenNumber[token.type])) tokenNumber[token.type] = 1;
+        else tokenNumber[token.type]++;
     }
-    return blockNumber;
+    return tokenNumber;
 }
 
 function countTypeSize(parsedData) {
     let list = initTypeList();
-    for (let block of parsedData) {
+    for (let token of parsedData) {
 
-        if (!_.isNumber(list[block.type])) list[block.type] = block.block.length;
-        else list[block.type] += block.block.length;
+        if (!_.isNumber(list[token.type])) list[token.type] = token.token.length;
+        else list[token.type] += token.token.length;
     }
     return list;
 }
@@ -33,9 +33,9 @@ function countletterCaseSize(parsedData) {
         upperCase: 0,
         lowerCase: 0
     };
-    for (let block of parsedData) {
-        if (block.type !== 'letter') continue;
-        let charList = block.block.split("");
+    for (let token of parsedData) {
+        if (token.type !== 'letter') continue;
+        let charList = token.token.split("");
         charList.forEach(function (item) {
             if (item === item.toLowerCase()) list.lowerCase++;
             if (item === item.toUpperCase()) list.upperCase++;
@@ -76,16 +76,16 @@ function countMiddleNumberOrSymbol(analyzedData) {
     let pd = analyzedData.parsedData;
     if(pd.length===0)  return 0;
     let ts = analyzedData.typeSize;
-    let bn = analyzedData.blockNumber;
+    let bn = analyzedData.tokenNumber;
 
 
-    let firstBlock = pd[0];
-    let lastBlack = pd[bn - 1];
+    let firstToken = pd[0];
+    let lastToken = pd[bn - 1];
 
     let middleNum = ts["number"] + ts["symbol"];
 
-    if (firstBlock.type !== 'letter') middleNum--;
-    if (lastBlack.type !== 'letter') middleNum--;
+    if (firstToken.type !== 'letter') middleNum--;
+    if (lastToken.type !== 'letter') middleNum--;
 
     return middleNum;
 
@@ -100,13 +100,13 @@ function analyseConsecutive(parsedData) {
         number: 0
     }
 
-    for (let block of parsedData) {
-        if (block.type === 'number') {
-            list.number += block.block.length - 1;
+    for (let token of parsedData) {
+        if (token.type === 'number') {
+            list.number += token.token.length - 1;
         }
 
-        if (block.type === 'letter' && block.block.length > 1) {
-            let letterList = block.block.split("");
+        if (token.type === 'letter' && token.token.length > 1) {
+            let letterList = token.token.split("");
             let un = 0; //uppercase number
             let ln = 0; //lowercase number
             for (let char of letterList) {
@@ -153,9 +153,9 @@ function analyzeSequential(parsedData) {
     }
 
 
-    for (let block of parsedData) {
-        let str = block.block;
-        let type = block.type;
+    for (let token of parsedData) {
+        let str = token.token;
+        let type = token.type;
 
         for (let i = 0; i < str.length - 2; i++) {
             let chkstr = str.substr(i, 3);
@@ -179,8 +179,8 @@ function analyse(password) {
     };
 
     analyzedData.typeSize = countTypeSize(analyzedData.parsedData); //size of each type
-    analyzedData.blockNumber = analyzedData.parsedData.length; //number of blocks
-    analyzedData.blockTypeNumber = countBlockTypeNumber(analyzedData.parsedData); //number of each type
+    analyzedData.tokenNumber = analyzedData.parsedData.length; //number of tokens
+    analyzedData.tokenTypeNumber = counttokenTypeNumber(analyzedData.parsedData); //number of each type
     analyzedData.letterCaseSize = countletterCaseSize(analyzedData.parsedData); //number of each type of letter case
     analyzedData.onlyType = analyseOnlyType(analyzedData.parsedData); //number of each type of letter case
     //analyzedData.repetitivePattern = analyseRepetitivePattern(analyzedData.password); //number of each type of letter case

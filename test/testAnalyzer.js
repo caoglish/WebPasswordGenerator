@@ -1,16 +1,26 @@
 var assert = require('chai').assert;
 var analyzer = require("../src/js/Analyzer");
 
+// describe('Analyzer', function () {
+//     describe('Analyzer', function () {
+//         it('Analysing basic: 12345fabcsdddf3Edd!@#d', function () {
+//             let result = analyzer.analyse("12345fabcsdddf3Edd!@#d");
+//             console.log(result);
+
+//         })})});
+
+
 describe('Analyzer', function () {
     describe('Analyzer', function () {
         it('Analysing basic: 12345fabcsdddf3Edd!@#d', function () {
 
             let result = analyzer.analyse("12345fabcsdddf3Edd!@#d");
+            console.log(result);
             assert.equal(8, result.middleNumberOrSymbolSize);
             assert.equal(3, result.sequential.number);
             assert.equal(1, result.sequential.symbol);
             assert.equal(10, result.repetitiveCharacter.count);
-            assert.equal(6, result.blockNumber);
+            assert.equal(6, result.tokenNumber);
             assert.deepEqual({
                 upperCase: 1,
                 lowerCase: 12
@@ -24,7 +34,7 @@ describe('Analyzer', function () {
                 letter: 3,
                 number: 2,
                 symbol: 1
-            }, result.blockTypeNumber);
+            }, result.tokenTypeNumber);
             assert.deepEqual({
                 letter: 13,
                 number: 6,
@@ -40,7 +50,7 @@ describe('Analyzer', function () {
             assert.equal(0, result.sequential.number);
             assert.equal(0, result.sequential.symbol);
             assert.equal(3, result.repetitiveCharacter.count);
-            assert.equal(5, result.blockNumber);
+            assert.equal(5, result.tokenNumber);
             assert.deepEqual({
                 upperCase: 1,
                 lowerCase: 6
@@ -54,7 +64,7 @@ describe('Analyzer', function () {
                 letter: 3,
                 number: 1,
                 symbol: 1
-            }, result.blockTypeNumber);
+            }, result.tokenTypeNumber);
             assert.deepEqual({
                 letter: 7,
                 number: 3,
