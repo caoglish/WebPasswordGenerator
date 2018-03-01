@@ -74,7 +74,7 @@ function analyseRepetitiveCharacter(password) {
 function countMiddleNumberOrSymbol(analyzedData) {
    
     let pd = analyzedData.parsedData;
-    if(pd.length===0)  return 0;
+    if(analyzedData.size<2)  return 0;
     let ts = analyzedData.typeSize;
     let bn = analyzedData.tokenNumber;
 
