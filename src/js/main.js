@@ -5,14 +5,15 @@ var _ = require('lodash');
 var app = new Vue({
   el: '#app',
   data: {
-    password: 'abc123---fadf-e3!@#$68',
+    password: 'test-_abc123!@#$',
 
   },
   computed: {
     analyzedInfo: function () {
-      return Analyzer.analyse(this.password);
+        return Analyzer.analyse(this.password);
     },
     tableItem: function () {
+      
       return [{
           "rule": "Number of Characters",
           "count": this.analyzedInfo.size

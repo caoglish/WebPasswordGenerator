@@ -182,12 +182,12 @@ function analyse(password) {
     analyzedData.tokenNumber = analyzedData.parsedData.length; //number of tokens
     analyzedData.tokenTypeNumber = counttokenTypeNumber(analyzedData.parsedData); //number of each type
     analyzedData.letterCaseSize = countletterCaseSize(analyzedData.parsedData); //number of each type of letter case
-    analyzedData.onlyType = analyseOnlyType(analyzedData.parsedData); //number of each type of letter case
-    //analyzedData.repetitivePattern = analyseRepetitivePattern(analyzedData.password); //number of each type of letter case
-    analyzedData.repetitiveCharacter = analyseRepetitiveCharacter(analyzedData.password); //number of each type of letter case
-    analyzedData.middleNumberOrSymbolSize = countMiddleNumberOrSymbol(analyzedData); //number of each type of letter case
-    analyzedData.consecutive = analyseConsecutive(analyzedData.parsedData); //number of each type of letter case
-    analyzedData.sequential = analyzeSequential(analyzedData.parsedData); //number of each type of letter case
+    analyzedData.onlyType = analyseOnlyType(analyzedData.parsedData); 
+    //analyzedData.repetitivePattern = analyseRepetitivePattern(analyzedData.password);
+    analyzedData.repetitiveCharacter = analyseRepetitiveCharacter(analyzedData.password); 
+    analyzedData.middleNumberOrSymbolSize = countMiddleNumberOrSymbol(analyzedData); 
+    analyzedData.consecutive = analyseConsecutive(analyzedData.parsedData); 
+    analyzedData.sequential = analyzeSequential(analyzedData.parsedData); 
 
     return analyzedData;
 }
