@@ -28,7 +28,7 @@
     "grunt-contrib-connect": "^1.0.2",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-eslint": "0.0.5",
-    "grunt-contrib-watch": "^1.0.0",
+    "grunt-contrib-watch": "^1.1.0",
     "grunt-shell": "^1.1.2",
     "grunt-shell-spawn": "^0.3.10",
     "mocha": "^4.1.0"
